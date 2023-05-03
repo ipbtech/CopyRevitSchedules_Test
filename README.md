@@ -1,2 +1,2 @@
-# CopyingRevitShedueles_Test
+# CopyingRevitShedueles
 Тестовая задача по Revit API
