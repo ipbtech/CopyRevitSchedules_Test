@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net4.7.2</TargetFramework>
+	  <PlatformTarget>x64</PlatformTarget>
+	  <LangVersion>10.0</LangVersion>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <UseWPF>true</UseWPF>
+	  <AssemblyVersion>1.0.0.0</AssemblyVersion>
+	  <AssemblyName>$(MSBuildProjectName)_PIV</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autodesk.Revit.SDK" Version="2020.2.1.2001" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

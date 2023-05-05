@@ -1,0 +1,65 @@
+﻿<Window x:Class="CopyRevitSchedules.WPF.Views.CopySchedulesWPF"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:CopyRevitSchedules.WPF.Views"
+            mc:Ignorable="d" 
+            WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+            Title="CopySchedulesPlugin"
+            Height="266" Width="480" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Button
+            Grid.Column="0" Grid.Row="0"
+            x:Name="GetModelList" 
+            Content="Загрузить .txt файл " FontSize="14" VerticalContentAlignment="Center" 
+            Margin="10,0,0,0"
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Width="150" Height="25"  
+            BorderBrush="Black" 
+            Click="GetModelList_Click" Background="#FFD7D6D6"/>
+        <TextBlock 
+            Grid.Column="0" Grid.Row="1"
+            Margin="10,0,0,0" VerticalAlignment="Top" 
+            Text="Список загруженных моделей:" FontSize="14"/>
+        <ListBox
+            Grid.Column="0" Grid.Row="2" Grid.RowSpan="4"
+            x:Name ="ModelNameList" Margin="10,5,10,5"/>
+        <CheckBox
+            Grid.Column="1" Grid.Row="2"
+            x:Name ="SchedulesAR" IsChecked="False"
+            Content="Копирование спецификаций АР"
+            Checked="SchedulesAR_checked"
+            Margin="10,5,0,0" FontSize="12" Unchecked="SchedulesAR_Unchecked"/>
+        <CheckBox
+            Grid.Column="1" Grid.Row="2"
+            x:Name ="SchedulesKR" IsChecked="False"
+            Content="Копирование спецификаций КР"
+            Checked="SchedulesKR_checked"
+            Margin="10,35,0,0" FontSize="12" Unchecked="SchedulesKR_Unchecked"/>
+        <TextBlock 
+            Grid.Column="1" Grid.Row="2"
+            Margin="30,50,0,0" VerticalAlignment="Top" 
+            Text="(с изменением фильтров)" FontSize="12"/>
+        <Button
+            Grid.Column="1" Grid.Row="4"
+            x:Name="StartButton" 
+            Content="Запуск" FontSize="14" VerticalContentAlignment="Center" 
+            HorizontalAlignment="Center" VerticalAlignment="Center" 
+            Width="150" Height="25"  
+            BorderBrush="Black"  Background="#FFD7D6D6" 
+            Click="StartButton_Click"/>
+    </Grid>
+</Window>
