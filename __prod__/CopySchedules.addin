@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Assembly>./CopySchedules/CopyRevitSchedules_PIV.dll</Assembly>
+    <ClientId>e95164d8-5bc4-4630-bf0c-306c3fa46793</ClientId>
+    <FullClassName>CopyRevitSchedules.CopyRevitSchedules</FullClassName>
+    <Text>КопироватьСпекиПоказателейЭффективности</Text>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <VendorId>ASML</VendorId>
+    <VendorDescription>Samolet</VendorDescription>
+  </AddIn>
+</RevitAddIns>
