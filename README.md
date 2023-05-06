@@ -5,3 +5,4 @@
 
 ## Установка и запуск
 Скопировать содержимое папки __prod__ в папку с плагинами для подгрузки их в Revit: **C:\Users\%username%\AppData\Roaming\Autodesk\Revit\Addins\2020**
+При запуске 
