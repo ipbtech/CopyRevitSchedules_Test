@@ -12,3 +12,5 @@
 Скопировать содержимое папки __prod__ в папку с плагинами для подгрузки их в Revit: **C:\Users\%username%\AppData\Roaming\Autodesk\Revit\Addins\2020**
 При запуске Revit в появившемся окне выбрать "Всегда загружать" или "Загрузить один раз".
 ![Загрузка в Revit](https://disk.yandex.ru/i/7rWZkGSsTedYbg)
+
+![screenshot of sample](http://webdesign.ru.net/images/Heydon_min.jpg)
