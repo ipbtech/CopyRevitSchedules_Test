@@ -15,4 +15,4 @@
 ![Загрузка в Revit](https://github.com/ipbtech/CopyRevitSchedules_Test/blob/e23bb30254eea8c0d44bce3415895202e0313955/Raw/1.png)
 
 ## Интерфейс
-![Интерфейс](https://github.com/ipbtech/CopyRevitSchedules_Test/blob/e23bb30254eea8c0d44bce3415895202e0313955/Raw/1.png)
+![Интерфейс](https://github.com/ipbtech/CopyRevitSchedules_Test/blob/21874c130688f37e293f69238a180fbebc4231c6/Raw/2.png)
