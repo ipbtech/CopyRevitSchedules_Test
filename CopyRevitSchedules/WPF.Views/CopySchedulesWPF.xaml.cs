@@ -5,6 +5,7 @@ using Autodesk.Revit.UI.Events;
 using RevitFailureHandleServices;
 using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
@@ -96,17 +97,30 @@ namespace CopyRevitSchedules.WPF.Views
             IList<Element> schedulesKR = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Schedules).ToElements();
             foreach (Element schedule in schedulesKR)
             {
-                if (schedule.Name == "КЖ_Арматура для ключевых показателей" || schedule.Name == "КЖ_Бетон для ключевых показателей")
+                if (schedule.Name.StartsWith("КЖ_Анализ_Всего арматуры") || schedule.Name.StartsWith("КЖ_Анализ_Всего бетона"))
                 {
                     schedulesKRList.Add(schedule as ViewSchedule);
                 }
 
             }
-            if (!schedulesKRList.Any(value => value.Name == "КЖ_Арматура для ключевых показателей") || 
-                !schedulesKRList.Any(value => value.Name == "КЖ_Бетон для ключевых показателей"))
+            if (!schedulesKRList.Any(value => value.Name.StartsWith("КЖ_Анализ_Всего арматуры")) || 
+                !schedulesKRList.Any(value => value.Name.StartsWith("КЖ_Анализ_Всего бетона")))
             {
-                TaskDialog.Show("Ошибка", "Cпецификации \"КЖ_Арматура для ключевых показателей\" и/или " +
-                    "\"КЖ_Бетон для ключевых показателей\" в текущем проекте не найдена.");
+                TaskDialog.Show("Ошибка", "Cпецификации \"КЖ_Анализ_Всего арматуры...\" и/или " +
+                    "\"КЖ_Анализ_Всего бетона...\" в текущем проекте не найдены. Проверьте их наличие в модели.");
+            }
+            else
+            {
+                IList<ScheduleFilter> scheduleFilters = new List<ScheduleFilter>();
+                foreach (ViewSchedule schedule in schedulesKRList)
+                {
+                    ScheduleFilter getFilter = schedule.Definition.GetFilters().Where(filter => filter.IsStringValue).FirstOrDefault();
+                    if (getFilter != null) { scheduleFilters.Add(getFilter); }
+                }
+                if (scheduleFilters.Count != schedulesKRList.Count)
+                {
+                    TaskDialog.Show("Ошибка", "Нестыковочка. Проверьте наличие фильтров по марке (для бетона) и метке основы (для арматуры) в спецификациях КЖ.");
+                }
             }
         }
         private void SchedulesKR_Unchecked(object sender, RoutedEventArgs e)
@@ -157,11 +171,11 @@ namespace CopyRevitSchedules.WPF.Views
                                     ElementTransformUtils.CopyElements(doc, scheduleIds, opendoc, null, new CopyPasteOptions());
                                     trans.Commit();
                                 }
-                                report.Append($"   Спецификация успешно скопирована. {Environment.NewLine}");
+                                report.Append($"    Спецификация успешно скопирована. {Environment.NewLine}");
                             }
                             else
                             {
-                                report.Append($"   Спецификация не скопирована, так как отсутствует в выборке исходного проекта. {Environment.NewLine}");
+                                report.Append($"    Спецификация не скопирована, так как отсутствует в выборке исходного проекта. {Environment.NewLine}");
                             }
                         }
                         else if (modelRazdel == "КР")
@@ -181,16 +195,16 @@ namespace CopyRevitSchedules.WPF.Views
                                     
                                     trans.Commit();
                                 }
-                                report.Append($"   Спецификация успешно скопирована. {Environment.NewLine}");
+                                report.Append($"    Спецификация успешно скопирована. {Environment.NewLine}");
                             }
                             else
                             {
-                                report.Append($"   Спецификация не скопирована, так как отсутствует в выборке исходного проекта. {Environment.NewLine}");
+                                report.Append($"    Спецификация не скопирована, так как отсутствует в выборке исходного проекта. {Environment.NewLine}");
                             }
                         }
                         else
                         {
-                            report.Append($"   Модель не соответствует разделу АР или КР {Environment.NewLine}");
+                            report.Append($"    Модель не соответствует разделу АР или КР {Environment.NewLine}");
                         }
 
                         MainMethods.SynchronizeModifiedFile(opendoc, mpath);
@@ -201,10 +215,10 @@ namespace CopyRevitSchedules.WPF.Views
                         TimeSpan tsFileElapsed = timeFile.Elapsed;
                         string timeFileElapsed = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                             tsFileElapsed.Hours, tsFileElapsed.Minutes, tsFileElapsed.Seconds, tsFileElapsed.Milliseconds / 10);
-                        report.Append($"     Время обработки файла: {timeFileElapsed} {Environment.NewLine}{Environment.NewLine}");
+                        report.Append($"    Время обработки файла: {timeFileElapsed} {Environment.NewLine}{Environment.NewLine}");
                         #endregion
 
-                        // Подписка от событий 
+                        // Отписка от событий 
                         uiapp.Application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(Helper.DeleteAllWarnings);
                         uiapp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(DialogBoxHandler.DialogBoxShowing);
                     }

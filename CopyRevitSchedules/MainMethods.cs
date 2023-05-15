@@ -63,18 +63,18 @@ namespace CopyRevitSchedules
 
         public static void ChangeFilterScheduele(Document doc)
         {
+            string complect = CheckComplectKZH(doc);
             List<ElementId> elementIds = new List<ElementId>();
 
             IList<Element> schedulesKR = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Schedules).ToElements();
             foreach (Element schedule in schedulesKR)
             {
-                if (schedule.Name == "КЖ_Арматура для ключевых показателей" || schedule.Name == "КЖ_Бетон для ключевых показателей")
+                if (schedule.Name.StartsWith("КЖ_Анализ_Всего арматуры") || schedule.Name.StartsWith("КЖ_Анализ_Всего бетона"))
                 {
                     elementIds.Add(schedule.Id);
                 }
             }
 
-            string complect = CheckComplectKZH(doc);
             foreach (ElementId elId in elementIds)
             {
                 ViewSchedule schedule = doc.GetElement(elId) as ViewSchedule;
