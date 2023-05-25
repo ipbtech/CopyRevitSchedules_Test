@@ -1,7 +1,7 @@
 # CopyRevitSchedules
 
 ## Основные технологии
-1. .NET Framework 4.7
+1. .NET Framework 4.8
 2. LINQ
 3. Revit API 2020
 4. WPF
