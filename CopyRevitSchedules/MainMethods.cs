@@ -78,15 +78,9 @@ namespace CopyRevitSchedules
             foreach (ElementId elId in elementIds)
             {
                 ViewSchedule schedule = doc.GetElement(elId) as ViewSchedule;
-                IList<ScheduleFilter> scheduleFilters = schedule.Definition.GetFilters();
-                foreach (ScheduleFilter filter in scheduleFilters)
-                {
-                    if(filter.IsStringValue)
-                    {
-                        filter.SetValue(complect);
-                        schedule.Definition.SetFilter(1, filter);
-                    }
-                }
+                ScheduleFilter scheduleFilter = schedule.Definition.GetFilters()[1];
+                scheduleFilter.SetValue(complect);
+                schedule.Definition.SetFilter(1, scheduleFilter);
             }
         }
 
